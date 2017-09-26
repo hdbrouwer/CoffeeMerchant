@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionDocuments", "SolutionDocuments", "{B1ADC0D8-DC36-4A03-B036-9392C23675FA}"
 	ProjectSection(SolutionItems) = preProject
 		D:\Quarter 1\DataWarehouseMining\Module 1\BISolutionWorksheets.xlsx = D:\Quarter 1\DataWarehouseMining\Module 1\BISolutionWorksheets.xlsx
+		..\..\..\..\Source\Repos\CoffeeMerchant\CoffeeMerchantSolution\Information Package.docx = ..\..\..\..\Source\Repos\CoffeeMerchant\CoffeeMerchantSolution\Information Package.docx
 	EndProjectSection
 EndProject
 Global
