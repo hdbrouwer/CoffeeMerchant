@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "CoffeeMerchant", "CoffeeMerchant\CoffeeMerchant.dtproj", "{C7C9EC57-3457-4FB8-9216-4830E7080986}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionDocuments", "SolutionDocuments", "{B1ADC0D8-DC36-4A03-B036-9392C23675FA}"
 	ProjectSection(SolutionItems) = preProject
 		BISolutionWorksheets.xlsx = BISolutionWorksheets.xlsx
@@ -15,10 +13,6 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Development|Default = Development|Default
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C7C9EC57-3457-4FB8-9216-4830E7080986}.Development|Default.ActiveCfg = Development
-		{C7C9EC57-3457-4FB8-9216-4830E7080986}.Development|Default.Build.0 = Development
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
