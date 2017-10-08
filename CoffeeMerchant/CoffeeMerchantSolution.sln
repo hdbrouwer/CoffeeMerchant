@@ -10,6 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionDocuments", "Soluti
 		STAR Schema.vsdx = STAR Schema.vsdx
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DWCoffeeMerchantSales", "DWCoffeeMerchantSales", "{9D3890E7-A82E-475F-AAE6-2063F2FB6094}"
+	ProjectSection(SolutionItems) = preProject
+		CoffeeMerchantDW Build.sql = CoffeeMerchantDW Build.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Development|Default = Development|Default
