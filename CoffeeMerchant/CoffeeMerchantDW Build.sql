@@ -1,29 +1,8 @@
-USE [master]
+IF NOT EXISTS(SELECT * FROM sys.databases
+	WHERE name = N'DWCoffeeMerchantSales')
+	CREATE DATABASE DraftKingsDM
 GO
-IF  EXISTS (SELECT name FROM sys.databases WHERE name = N'DWCoffeeMerchantSales')
-  BEGIN
-     -- Close connections to the DWCoffeeMerchant database 
-    ALTER DATABASE [DWCoffeeMerchantSales] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE
-    DROP DATABASE [DWCoffeeMerchantSales]
-  END
-GO
-
-CREATE DATABASE [DWCoffeeMerchantSales] ON  PRIMARY 
-( NAME = N'DWCoffeeMerchantSales'
-, FILENAME = N'C:\_BISolutions\CoffeeMerchant\DWCoffeeMerchant.mdf' 
-, SIZE = 10MB 
-, MAXSIZE = 1GB
-, FILEGROWTH = 10MB )
- LOG ON 
-( NAME = N'DWCoffeeMerchantSales_log'
-, FILENAME = N'C:\_BISolutions\CoffeeMerchant\DWCoffeeMerchant_log.LDF' 
-, SIZE = 1MB 
-, MAXSIZE = 1GB 
-, FILEGROWTH = 10MB)
-GO
-EXEC [DWCoffeeMerchantSales].dbo.sp_changedbowner @loginame = N'SA', @map = false
-GO
-ALTER DATABASE [DWCoffeeMerchantSales] SET RECOVERY BULK_LOGGED 
+USE DWCoffeeMerchantSales
 GO
 
 -- Drop Things
@@ -88,7 +67,6 @@ CREATE TABLE DimEmployee
 	Name					NVARCHAR(60)			NOT NULL,
 	CommissionRate 			NUMERIC(4,4)			NOT NULL,
 	HireDate       			DATETIME				NOT NULL,
-	BirthDate     			DATETIME				NOT NULL,
 	Gender         			NVARCHAR(1)				NOT NULL,
 	)
 GO
