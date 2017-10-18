@@ -15,7 +15,7 @@
       <SSIS:Project SSIS:ProtectionLevel="EncryptSensitiveWithUserKey" xmlns:SSIS="www.microsoft.com/SqlServer/SSIS">
         <SSIS:Properties>
           <SSIS:Property SSIS:Name="ID">{0d22ca1d-f7fd-4c36-8db7-97a599122792}</SSIS:Property>
-          <SSIS:Property SSIS:Name="Name">CoffeeMerchanSSIS</SSIS:Property>
+          <SSIS:Property SSIS:Name="Name">CoffeeMerchantETL</SSIS:Property>
           <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
           <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
           <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
@@ -26,26 +26,26 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">FIRSTNAMEWINUTS</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAKfIeu+x4XEasVKxZznEiVgAAAAACAAAAAAAQZgAAAAEAACAAAAD6h8Out2IHGo4ytoddUa6CGLaxeiU1YTYElM4epRjkIQAAAAAOgAAAAAIAACAAAADGVcB858XDKIjMUl0zM6CQauupHq8BFMkpvDjvP+ZFApAAAACTi7u+0sXqYgkVY0eoQld7aMiEOx8IN+H1zj1AvYeLZq+fpKxRx3NnydIRVX/z3HidROYC+hWQlvFPwvo5HaYShnSx0bmG89AjHLrZzgrt94xnf46BuXjq9Otq6VhhcH+9lLlPA1rtZISr4Icarq6xW5ZsSqlwi3BaEkF5wEZ+iilcdF4wtwddkL/nQTWjSOJAAAAAeJnzz3rEZPgbDDrhfnRPeXYBzB4WOFl26p81SnrriiforJVndD1Mg0JYWo9OxO2MTFD9qkuslRZEqU2JGnGJ+g==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA/5rKRlsOVEimjfldTv/uhgAAAAACAAAAAAAQZgAAAAEAACAAAADRPQhvTlAcdG9LAaSW5qzNN6ajCpXUfNMSThQFv3cqogAAAAAOgAAAAAIAACAAAABUdA0dCQSdNpj1HgnrajCHfIFkWZJgufRDSeW6o0/4pZAAAADADP+wJq9Dd7UwE9W9Fl+EQw3ewhyVEH9I1z1k1cyfgeP77vChaJMrgCTSNZOAavSYLaPreV16ewTA17phkpm/aHE66ZbzH8nFxULZJssTnErckBsJ7x/fNc1M1bhLyqIrheqTBwJLtgEH1/F9oHI3wdeUFlJ7FkV3OOSzfSPTG4+/xETzOZTMfhLxylmfEzhAAAAAwCGBdzDShYLQJ8LVgkPLtN3GlSrAKJYh4lwShdmIj3ruxylTy7F5n4siYQZj8d2oDFfwDKfn/Sdit5/Ihil9EA==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
-          <SSIS:Package SSIS:Name="CoffeeMerchant.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="ETLforCoffeeMerchant.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers />
         <SSIS:DeploymentInfo>
           <SSIS:ProjectConnectionParameters />
           <SSIS:PackageInfo>
-            <SSIS:PackageMetaData SSIS:Name="CoffeeMerchant.dtsx">
+            <SSIS:PackageMetaData SSIS:Name="ETLforCoffeeMerchant.dtsx">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{708FE960-C72F-4539-99BC-775FC7ACAB11}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">CoffeeMerchant</SSIS:Property>
+                <SSIS:Property SSIS:Name="ID">{3C902566-572C-426F-A5AC-4EA5345E7EBC}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">ETLforCoffeeMerchant</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">15</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">19</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{6EC15390-A452-472A-A6C7-5E213CC7FB05}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{1B376D0D-2EB0-4D97-8236-FA2BE24EA773}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -246,7 +246,7 @@
         <ConnectionProviderMappings />
         <ConnectionSecurityMappings />
         <DatabaseStorageLocations />
-        <TargetServerVersion>SQLServer2014</TargetServerVersion>
+        <TargetServerVersion>SQLServer2017</TargetServerVersion>
         <ParameterConfigurationValues>
           <ConfigurationSetting>
             <Id>LastModifiedTime</Id>

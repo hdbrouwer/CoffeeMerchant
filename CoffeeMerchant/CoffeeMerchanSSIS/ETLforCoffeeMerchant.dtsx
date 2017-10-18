@@ -1,18 +1,18 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="10/18/2017 9:24:07 AM"
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="FIRSTNAMEWINUTS"
   DTS:CreatorName="FIRSTNAMEWINUTS\servicecenter"
-  DTS:DTSID="{708FE960-C72F-4539-99BC-775FC7ACAB11}"
+  DTS:DTSID="{3C902566-572C-426F-A5AC-4EA5345E7EBC}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="14.0.0800.90"
   DTS:LocaleID="1033"
-  DTS:ObjectName="CoffeeMerchant"
+  DTS:ObjectName="ETLforCoffeeMerchant"
   DTS:PackageType="5"
-  DTS:VersionBuild="16"
-  DTS:VersionGUID="{F84DEC5C-344D-4085-9EDF-BBB2F2ABA1DA}">
+  DTS:VersionBuild="27"
+  DTS:VersionGUID="{CD8A53A9-40F9-457D-A2CB-9A51A1A80D78}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -844,6 +844,23 @@
                   startId="Package\Load DimTables\Load DimConsumer\OLE DB Source.Outputs[OLE DB Source Output]" />
               </paths>
             </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load DimTables\Load DimDates"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{49857232-200E-4DD7-B813-119621AAD1D6}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load DimDates"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{C109D53C-AC7E-46D5-8483-8CC4ED0DE50A}"
+              SQLTask:SqlStatementSource="-- Used with Execute SQL Task &quot;Fill DimDates&quot;&#xA;-- Create variables to hold the start and end date&#xA;Declare @StartDate datetime = '01/01/1995'&#xA;Declare @EndDate datetime = '01/01/2000' &#xA;&#xA;-- Use a while loop to add dates to the table&#xA;Declare @DateInProcess datetime&#xA;Set @DateInProcess = @StartDate&#xA;&#xA;While @DateInProcess &lt;= @EndDate&#xA; Begin&#xA; -- Add a row into the date dimension table for this date&#xA; Insert Into DimDates &#xA; ( [Date], [DateName], [Month], [MonthName], [Quarter], [QuarterName], [Year], [YearName] )&#xA; Values ( &#xA;  @DateInProcess -- [Date]&#xA;  , DateName( weekday, @DateInProcess ) + ', ' + Cast(@DateInProcess as nVarchar(20)) -- [DateName]  &#xA;  , Month( @DateInProcess ) -- [Month]   &#xA;  , DateName( month, @DateInProcess ) -- [MonthName]&#xA;  , DateName( quarter, @DateInProcess ) -- [Quarter]&#xA;  , 'Q' + DateName( quarter, @DateInProcess ) + ' - ' + Cast( Year(@DateInProcess) as nVarchar(50) ) -- [QuarterName] &#xA;  , Year( @DateInProcess ) -- [Year] &#xA;  , Cast( Year(@DateInProcess ) as nVarchar(50) ) -- [YearName] &#xA;  )  &#xA; -- Add a day and loop again&#xA; Set @DateInProcess = DateAdd(d, 1, @DateInProcess)&#xA; End&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -2074,6 +2091,14 @@ GO</property>
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 1"
           DTS:To="Package\Load DimTables\Load DimEmployee" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load DimTables.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{ED6D044D-33B9-49CD-A5F8-61679F3A7DFA}"
+          DTS:From="Package\Load DimTables\Load DimEmployee"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Load DimTables\Load DimDates" />
       </DTS:PrecedenceConstraints>
     </DTS:Executable>
     <DTS:Executable
@@ -2127,7 +2152,7 @@ GO</property>
 <!--If you manually edit this section and make a mistake, you can delete it. -->
 <!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
 <Objects
-  Version="sql12">
+  Version="8">
   <!--Each node below will contain properties that do not affect runtime behavior.-->
   <Package
     design-time-name="Package">
@@ -2135,26 +2160,26 @@ GO</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="123.2,42.4"
+          Size="123.141361256545,42.2198952879582"
           Id="Package\Build DW\Build DM"
           TopLeft="59.1413612565445,46.2408376963351" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="249.6,158.4"
-          Size="249.6,201.6"
+          PanelSize="249.801047120419,158.324607329843"
+          Size="249.801047120419,201.549738219896"
           Id="Package\Build DW"
           TopLeft="104.460732984293,42.8900523560209" />
         <NodeLayout
-          Size="173.6,42.4"
+          Size="173.403141361257,42.2198952879582"
           Id="Package\Load DimTables\Load DimConsumer"
           TopLeft="48.4188481675393,23.7905759162304" />
         <NodeLayout
-          Size="171.2,42.4"
+          Size="171.392670157069,42.2198952879582"
           Id="Package\Load DimTables\Load DimEmployee"
           TopLeft="46.7434554973821,181.277486910995" />
         <NodeLayout
-          Size="171.2,42.4"
+          Size="171.392670157069,42.2198952879582"
           Id="Package\Load DimTables\Load DimInventory"
           TopLeft="43.3926701570681,102.534031413613" />
         <EdgeLayout
@@ -2205,69 +2230,97 @@ GO</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="152.795811518325,42.2198952879582"
+          Id="Package\Load DimTables\Load DimDates"
+          TopLeft="48.4188481675393,276.774869109948" />
+        <EdgeLayout
+          Id="Package\Load DimTables.PrecedenceConstraints[Constraint 2]"
+          TopLeft="128.628272251309,223.497382198953">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.2774869109944"
+              Start="0,0"
+              End="0,45.7774869109944">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.7774869109944" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-17.9932421875,18.1118879867472,35.986484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="287.2,342.4"
-          Size="287.2,385.6"
+          PanelSize="287.497382198953,397.570680628273"
+          Size="287.497382198953,440.795811518325"
           Id="Package\Load DimTables"
           TopLeft="81.2565445026177,296.544502617801" />
         <NodeLayout
-          Size="151.2,42.4"
+          Size="151.287958115184,42.2198952879582"
           Id="Package\Load Fact Table\Load FactSales"
           TopLeft="48.7539267015705,27.3089005235601" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="256,121.6"
-          Size="256,164"
+          PanelSize="256.335078534032,121.130890052357"
+          Size="256.335078534032,164.356020942409"
           Id="Package\Load Fact Table"
-          TopLeft="578.848167539267,410.471204188482" />
+          TopLeft="580.523560209424,440.628272251309" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="227.183246073298,244.439790575916">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,52.1047120418852"
+              EndConnector="0,52.1047120418849"
               Start="0,0"
-              End="0,44.6047120418852">
+              End="0,44.6047120418849">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,44.6047120418852" />
+                    End="0,44.6047120418849" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-17.9932421875,17.5255005521926,35.986484375,9.5537109375"
+              BoundingBox="-17.9932421875,17.5255005521924,35.986484375,9.5537109375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="368.753926701571,490.973821989529">
+          TopLeft="368.753926701571,519.874345549738">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="210.094240837696,0"
+              EndConnector="211.769633507853,0"
               Start="0,0"
-              End="202.594240837696,0">
+              End="204.269633507853,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="202.594240837696,0" />
+                    End="204.269633507853,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="83.3038782313482,5,35.986484375,9.5537109375"
+              BoundingBox="84.1415745664267,5,35.986484375,9.5537109375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -2280,19 +2333,19 @@ GO</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="152,42.4"
+          Size="152.293193717278,42.2198952879582"
           Id="Package\Load DimTables\Load DimConsumer\OLE DB Source"
           TopLeft="239.034031413613,5.49999999999995" />
         <NodeLayout
-          Size="168,42.4"
+          Size="167.874345549739,42.2198952879582"
           Id="Package\Load DimTables\Load DimConsumer\OLE DB Command"
           TopLeft="231.243455497382,209.939790575916" />
         <NodeLayout
-          Size="211.2,42.4"
+          Size="211.099476439791,42.2198952879582"
           Id="Package\Load DimTables\Load DimConsumer\Slowly Changing Dimension"
           TopLeft="209.630890052356,107.719895287958" />
         <NodeLayout
-          Size="165.6,42.4"
+          Size="165.361256544503,42.2198952879582"
           Id="Package\Load DimTables\Load DimConsumer\Insert Destination"
           TopLeft="5.50000000000003,209.939790575916" />
         <EdgeLayout
@@ -2350,7 +2403,9 @@ GO</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2465,13 +2520,13 @@ GO</property>
     design-time-name="Package\Load DimTables\Load DimEmployee">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="152,42.4"
+          Size="152.293193717278,42.2198952879582"
           Id="Package\Load DimTables\Load DimEmployee\OLE DB Source"
           TopLeft="257.842931937173,44.2303664921466" />
         <NodeLayout
-          Size="173.6,42.4"
+          Size="173.403141361257,42.2198952879582"
           Id="Package\Load DimTables\Load DimEmployee\OLE DB Destination"
           TopLeft="254.82722513089,137.717277486911" />
         <EdgeLayout
@@ -2493,7 +2548,9 @@ GO</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2526,41 +2583,43 @@ GO</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="149.6,41.6"
+          Size="152.293193717278,42.2198952879582"
           Id="Package\Load DimTables\Load DimInventory\OLE DB Source"
           TopLeft="239.034031413613,5.49999999999995" />
         <NodeLayout
-          Size="168,42.4"
+          Size="167.874345549739,42.2198952879582"
           Id="Package\Load DimTables\Load DimInventory\OLE DB Command"
           TopLeft="231.243455497382,209.939790575916" />
         <NodeLayout
-          Size="165.6,42.4"
+          Size="165.361256544503,42.2198952879582"
           Id="Package\Load DimTables\Load DimInventory\Insert Destination"
           TopLeft="5.50000000000003,209.939790575916" />
         <NodeLayout
-          Size="211.2,42.4"
+          Size="211.099476439791,42.2198952879582"
           Id="Package\Load DimTables\Load DimInventory\Slowly Changing Dimension"
           TopLeft="209.630890052356,107.719895287958" />
         <EdgeLayout
           Id="Package\Load DimTables\Load DimInventory.Paths[OLE DB Source Output]"
-          TopLeft="314.532460732985,47.1">
+          TopLeft="315.180628272251,47.7198952879581">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60.619895287958"
+              EndConnector="0,60"
               Start="0,0"
-              End="0,53.119895287958">
+              End="0,52.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,53.119895287958" />
+                    End="0,52.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2713,5 +2772,17 @@ GO</property>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Fact Table\Load FactSales">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="152.293193717278,42.2198952879582"
+          Id="2"
+          TopLeft="286.994764397906,49.2565445026178" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
