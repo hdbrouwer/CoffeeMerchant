@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="ETLforCoffeeMerchant"
   DTS:PackageType="5"
-  DTS:VersionBuild="26"
-  DTS:VersionGUID="{F96F0F80-0F93-48B6-B5A8-2420FDC9B17A}">
+  DTS:VersionBuild="27"
+  DTS:VersionGUID="{CD8A53A9-40F9-457D-A2CB-9A51A1A80D78}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
