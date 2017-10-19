@@ -1,6 +1,6 @@
 IF NOT EXISTS(SELECT * FROM sys.databases
 	WHERE name = N'DWCoffeeMerchantSales')
-	CREATE DATABASE DraftKingsDM
+	CREATE DATABASE DWCoffeeMerchantSales
 GO
 USE DWCoffeeMerchantSales
 GO
@@ -24,9 +24,9 @@ IF EXISTS(
 IF EXISTS(
 	SELECT *
 	FROM sys.tables
-	WHERE name = N'DimDates'
-       )
-	DROP TABLE DimDates;
+	WHERE name = N'DimDate'
+	)
+	DROP TABLE DimDate;
 
 IF EXISTS(
 	SELECT *
@@ -46,18 +46,43 @@ IF EXISTS(
 USE [DWCoffeeMerchantSales]
 GO
 
-CREATE TABLE [dbo].[DimDates](
-       	[DateSK]			INT IDENTITY(1,1)		NOT NULL PRIMARY KEY,
-       	[Date]				DATETIME				NOT NULL UNIQUE,
-       	[DateName] 			NVARCHAR(50)			NOT NULL,
-       	[Month]	 			INT						NOT NULL,
-       	[MonthName]			NVARCHAR(50)			NOT NULL,
-       	[Quarter]			INT						NOT NULL,
-       	[QuarterName]		NVARCHAR(50)			NOT NULL,
-       	[Year] 				INT						NOT NULL,
-       	[YearName] 			NVARCHAR(50)			NOT NULL,
-)
-GO
+-- Create [dbo].[DimDate2]
+CREATE TABLE [dbo].[DimDate]
+	(	
+	Date_SK INT PRIMARY KEY, 
+	Date DATETIME,
+	FullDate CHAR(10),-- Date in MM-dd-yyyy format
+	DayOfMonth INT, -- Field will hold day number of Month
+	DayName VARCHAR(9), -- Contains name of the day, Sunday, Monday 
+	DayOfWeek INT,-- First Day Sunday=1 and Saturday=7
+	DayOfWeekInMonth INT, -- 1st Monday or 2nd Monday in Month
+	DayOfWeekInYear INT,
+	DayOfQuarter INT,
+	DayOfYear INT,
+	WeekOfMonth INT,-- Week Number of Month 
+	WeekOfQuarter INT, -- Week Number of the Quarter
+	WeekOfYear INT,-- Week Number of the Year
+	Month INT, -- Number of the Month 1 to 12{}
+	MonthName VARCHAR(9),-- January, February etc
+	MonthOfQuarter INT,-- Month Number belongs to Quarter
+	Quarter CHAR(2),
+	QuarterName VARCHAR(9),-- First,Second..
+	Year INT,-- Year value of Date stored in Row
+	YearName CHAR(7), -- CY 2015,CY 2016
+	MonthYear CHAR(10), -- Jan-2016,Feb-2016
+	MMYYYY INT,
+	FirstDayOfMonth DATE,
+	LastDayOfMonth DATE,
+	FirstDayOfQuarter DATE,
+	LastDayOfQuarter DATE,
+	FirstDayOfYear DATE,
+	LastDayOfYear DATE,
+	IsHoliday BIT,-- Flag 1=National Holiday, 0-No National Holiday
+	IsWeekday BIT,-- 0=Week End ,1=Week Day
+	Holiday VARCHAR(50),--Name of Holiday in US
+	Season VARCHAR(10)--Name of Season
+	);
+
 
 -- Table Employee
 
@@ -100,7 +125,7 @@ GO
 --Fact Table
 
 CREATE TABLE [dbo].[FactSales](
-    DateSK					INT	CONSTRAINT fk_DateSK FOREIGN KEY REFERENCES DimDates(DateSK)					NOT NULL,
+    DateSK					INT	CONSTRAINT fk_DateSK FOREIGN KEY REFERENCES DimDate(Date_SK)					NOT NULL,
     ConsumerSK	 			INT	CONSTRAINT fk_ConsumerSK FOREIGN KEY REFERENCES DimConsumer(ConsumerSK)					NOT NULL,
     EmployeeSK	 			INT CONSTRAINT fk_EmployeeSK FOREIGN KEY REFERENCES DimEmployee(EmployeeSK)						NOT NULL,
     InventorySK				INT	CONSTRAINT fk_InventorySK FOREIGN KEY REFERENCES DimInventory(InventorySK)					NOT NULL,
@@ -115,4 +140,3 @@ CREATE TABLE [dbo].[FactSales](
        	EmployeeSK
        	)
 ) 
-GO
