@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="ETLforCoffeeMerchant"
   DTS:PackageType="5"
-  DTS:VersionBuild="61"
-  DTS:VersionGUID="{9A13866E-1EB2-45FB-A56B-14CBB7A7104A}">
+  DTS:VersionBuild="63"
+  DTS:VersionGUID="{5C18DF8E-DAD7-49EE-A98A-B872C9B933BC}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -63,7 +63,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{018C7049-73A3-4A9F-B4A2-5AFDA611BC79}"
-              SQLTask:SqlStatementSource="IF NOT EXISTS(SELECT * FROM sys.databases&#xA;&#x9;WHERE name = N'DWCoffeeMerchantSales')&#xA;&#x9;CREATE DATABASE DWCoffeeMerchantSales&#xA;GO&#xA;USE DWCoffeeMerchantSales&#xA;GO&#xA;&#xA;-- Drop Things&#xA;&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'FactSales'&#xA;       )&#xA;&#x9;DROP TABLE FactSales;&#xA;&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimEmployee'&#xA;       )&#xA;&#x9;DROP TABLE DimEmployee;&#xA;&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimDate'&#xA;&#x9;)&#xA;&#x9;DROP TABLE DimDate;&#xA;&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimConsumer'&#xA;       )&#xA;&#x9;DROP TABLE DimConsumer;&#xA;&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimInventory'&#xA;       )&#xA;&#x9;DROP TABLE DimInventory;&#xA;&#xA;--Table Dates&#xA;USE [DWCoffeeMerchantSales]&#xA;GO&#xA;&#xA;-- Create [dbo].[DimDate2]&#xA;CREATE TABLE [dbo].[DimDate]&#xA;&#x9;(&#x9;&#xA;&#x9;Date_SK INT PRIMARY KEY, &#xA;&#x9;Date DATETIME,&#xA;&#x9;FullDate CHAR(10),-- Date in MM-dd-yyyy format&#xA;&#x9;DayOfMonth INT, -- Field will hold day number of Month&#xA;&#x9;DayName VARCHAR(9), -- Contains name of the day, Sunday, Monday &#xA;&#x9;DayOfWeek INT,-- First Day Sunday=1 and Saturday=7&#xA;&#x9;DayOfWeekInMonth INT, -- 1st Monday or 2nd Monday in Month&#xA;&#x9;DayOfWeekInYear INT,&#xA;&#x9;DayOfQuarter INT,&#xA;&#x9;DayOfYear INT,&#xA;&#x9;WeekOfMonth INT,-- Week Number of Month &#xA;&#x9;WeekOfQuarter INT, -- Week Number of the Quarter&#xA;&#x9;WeekOfYear INT,-- Week Number of the Year&#xA;&#x9;Month INT, -- Number of the Month 1 to 12{}&#xA;&#x9;MonthName VARCHAR(9),-- January, February etc&#xA;&#x9;MonthOfQuarter INT,-- Month Number belongs to Quarter&#xA;&#x9;Quarter CHAR(2),&#xA;&#x9;QuarterName VARCHAR(9),-- First,Second..&#xA;&#x9;Year INT,-- Year value of Date stored in Row&#xA;&#x9;YearName CHAR(7), -- CY 2015,CY 2016&#xA;&#x9;MonthYear CHAR(10), -- Jan-2016,Feb-2016&#xA;&#x9;MMYYYY INT,&#xA;&#x9;FirstDayOfMonth DATE,&#xA;&#x9;LastDayOfMonth DATE,&#xA;&#x9;FirstDayOfQuarter DATE,&#xA;&#x9;LastDayOfQuarter DATE,&#xA;&#x9;FirstDayOfYear DATE,&#xA;&#x9;LastDayOfYear DATE,&#xA;&#x9;IsHoliday BIT,-- Flag 1=National Holiday, 0-No National Holiday&#xA;&#x9;IsWeekday BIT,-- 0=Week End ,1=Week Day&#xA;&#x9;Holiday VARCHAR(50),--Name of Holiday in US&#xA;&#x9;Season VARCHAR(10)--Name of Season&#xA;&#x9;);&#xA;&#xA;&#xA;-- Table Employee&#xA;&#xA;CREATE TABLE DimEmployee&#xA;&#x9;(EmployeeSK    &#x9;&#x9;&#x9;INT IDENTITY (1,1)&#x9;&#x9;NOT NULL PRIMARY KEY, &#xA;&#x9;EmployeeAK &#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;Name&#x9;&#x9;&#x9;&#x9;&#x9;NVARCHAR(60)&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;CommissionRate &#x9;&#x9;&#x9;NUMERIC(4,4)&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;HireDate       &#x9;&#x9;&#x9;DATETIME&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;BirthDate&#x9;&#x9;&#x9;&#x9;DATETIME&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;Gender         &#x9;&#x9;&#x9;NVARCHAR(1)&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;)&#xA;GO&#xA;&#xA;-- Table Consumer&#xA;&#xA;CREATE TABLE DimConsumer(&#xA;&#x9;ConsumerSK&#x9;&#x9;&#x9;&#x9;INT IDENTITY (1, 1)&#x9;&#x9;NOT NULL PRIMARY KEY,&#xA;&#x9;ConsumerAK &#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;ConsumerCity &#x9;&#x9;&#x9;NVARCHAR(20)&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;ConsumerState &#x9;&#x9;&#x9;NVARCHAR(20)&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;ConsumerZipcode &#x9;&#x9;NVARCHAR(10)&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;ConsumerCreditLimit&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;) &#xA;GO&#xA;&#xA;--Inventory Table&#xA;&#xA;CREATE TABLE DimInventory(&#xA;InventorySK&#x9;&#x9;&#x9;&#x9;&#x9;INT IDENTITY (1, 1)&#x9;&#x9;NOT NULL PRIMARY KEY,&#xA;InventoryAK&#x9;&#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;InventoryName&#x9;&#x9;&#x9;&#x9;NVARCHAR(40)&#x9;&#x9;&#x9;NOT NULL,&#xA;InventoryPrice&#x9;&#x9;&#x9;&#x9;NUMERIC(6,2)&#x9;&#x9;&#x9;NOT NULL,&#xA;InventoryItemType&#x9;&#x9;&#x9;NVARCHAR(5)&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;InventoryCountryName&#x9;&#x9;NVARCHAR(40)&#x9;&#x9;&#x9;NOT NULL,&#xA;InventoryOnHand&#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL&#xA;)&#xA;GO &#xA;&#xA;--Fact Table&#xA;&#xA;CREATE TABLE [dbo].[FactSales](&#xA;    DateSK&#x9;&#x9;&#x9;&#x9;&#x9;INT&#x9;CONSTRAINT fk_DateSK FOREIGN KEY REFERENCES DimDate(Date_SK)&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;    ConsumerSK&#x9; &#x9;&#x9;&#x9;INT&#x9;CONSTRAINT fk_ConsumerSK FOREIGN KEY REFERENCES DimConsumer(ConsumerSK)&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;    EmployeeSK&#x9; &#x9;&#x9;&#x9;INT CONSTRAINT fk_EmployeeSK FOREIGN KEY REFERENCES DimEmployee(EmployeeSK)&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;    InventorySK&#x9;&#x9;&#x9;&#x9;INT&#x9;CONSTRAINT fk_InventorySK FOREIGN KEY REFERENCES DimInventory(InventorySK)&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;FullPrice&#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;Revenue&#x9;&#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;DiscountPrice&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;NOT NULL,&#xA;       &#x9;CONSTRAINT [PK_FactSales] PRIMARY KEY&#xA;       &#x9;(&#xA;       &#x9;DateSK,&#xA;       &#x9;ConsumerSK,&#xA;       &#x9;InventorySK,&#xA;       &#x9;EmployeeSK&#xA;       &#x9;)&#xA;) &#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStatementSource="IF NOT EXISTS(SELECT * FROM sys.databases&#xA;&#x9;WHERE name = N'DWCoffeeMerchantSales')&#xA;&#x9;CREATE DATABASE DWCoffeeMerchantSales&#xA;GO&#xA;USE DWCoffeeMerchantSales&#xA;GO&#xA;&#xA;-- Drop Things&#xA;&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'FactSales'&#xA;       )&#xA;&#x9;DROP TABLE FactSales;&#xA;&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimEmployee'&#xA;       )&#xA;&#x9;DROP TABLE DimEmployee;&#xA;&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimDate'&#xA;&#x9;)&#xA;&#x9;DROP TABLE DimDate;&#xA;&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimConsumer'&#xA;       )&#xA;&#x9;DROP TABLE DimConsumer;&#xA;&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimInventory'&#xA;       )&#xA;&#x9;DROP TABLE DimInventory;&#xA;&#xA;--Table Dates&#xA;USE [DWCoffeeMerchantSales]&#xA;GO&#xA;&#xA;-- Create [dbo].[DimDate2]&#xA;CREATE TABLE [dbo].[DimDate]&#xA;&#x9;(&#x9;&#xA;&#x9;Date_SK INT PRIMARY KEY, &#xA;&#x9;Date DATETIME,&#xA;&#x9;FullDate CHAR(10),-- Date in MM-dd-yyyy format&#xA;&#x9;DayOfMonth INT, -- Field will hold day number of Month&#xA;&#x9;DayName VARCHAR(9), -- Contains name of the day, Sunday, Monday &#xA;&#x9;DayOfWeek INT,-- First Day Sunday=1 and Saturday=7&#xA;&#x9;DayOfWeekInMonth INT, -- 1st Monday or 2nd Monday in Month&#xA;&#x9;DayOfWeekInYear INT,&#xA;&#x9;DayOfQuarter INT,&#xA;&#x9;DayOfYear INT,&#xA;&#x9;WeekOfMonth INT,-- Week Number of Month &#xA;&#x9;WeekOfQuarter INT, -- Week Number of the Quarter&#xA;&#x9;WeekOfYear INT,-- Week Number of the Year&#xA;&#x9;Month INT, -- Number of the Month 1 to 12{}&#xA;&#x9;MonthName VARCHAR(9),-- January, February etc&#xA;&#x9;MonthOfQuarter INT,-- Month Number belongs to Quarter&#xA;&#x9;Quarter CHAR(2),&#xA;&#x9;QuarterName VARCHAR(9),-- First,Second..&#xA;&#x9;Year INT,-- Year value of Date stored in Row&#xA;&#x9;YearName CHAR(7), -- CY 2015,CY 2016&#xA;&#x9;MonthYear CHAR(10), -- Jan-2016,Feb-2016&#xA;&#x9;MMYYYY INT,&#xA;&#x9;FirstDayOfMonth DATE,&#xA;&#x9;LastDayOfMonth DATE,&#xA;&#x9;FirstDayOfQuarter DATE,&#xA;&#x9;LastDayOfQuarter DATE,&#xA;&#x9;FirstDayOfYear DATE,&#xA;&#x9;LastDayOfYear DATE,&#xA;&#x9;IsHoliday BIT,-- Flag 1=National Holiday, 0-No National Holiday&#xA;&#x9;IsWeekday BIT,-- 0=Week End ,1=Week Day&#xA;&#x9;Holiday VARCHAR(50),--Name of Holiday in US&#xA;&#x9;Season VARCHAR(10)--Name of Season&#xA;&#x9;);&#xA;&#xA;&#xA;-- Table Employee&#xA;&#xA;CREATE TABLE DimEmployee&#xA;&#x9;(EmployeeSK    &#x9;&#x9;&#x9;INT IDENTITY (1,1)&#x9;&#x9;NOT NULL PRIMARY KEY, &#xA;&#x9;EmployeeAK &#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;Name&#x9;&#x9;&#x9;&#x9;&#x9;NVARCHAR(60)&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;CommissionRate &#x9;&#x9;&#x9;NUMERIC(4,4)&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;HireDate       &#x9;&#x9;&#x9;DATETIME&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;BirthDate&#x9;&#x9;&#x9;&#x9;DATETIME&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;Gender         &#x9;&#x9;&#x9;NVARCHAR(1)&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;)&#xA;GO&#xA;&#xA;-- Table Consumer&#xA;&#xA;CREATE TABLE DimConsumer(&#xA;&#x9;ConsumerSK&#x9;&#x9;&#x9;&#x9;INT IDENTITY (1, 1)&#x9;&#x9;NOT NULL PRIMARY KEY,&#xA;&#x9;ConsumerAK &#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;ConsumerCity &#x9;&#x9;&#x9;NVARCHAR(20)&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;ConsumerState &#x9;&#x9;&#x9;NVARCHAR(20)&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;ConsumerZipcode &#x9;&#x9;NVARCHAR(10)&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;ConsumerCreditLimit&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;) &#xA;GO&#xA;&#xA;--Inventory Table&#xA;&#xA;CREATE TABLE DimInventory(&#xA;InventorySK&#x9;&#x9;&#x9;&#x9;&#x9;INT IDENTITY (1, 1)&#x9;&#x9;NOT NULL PRIMARY KEY,&#xA;InventoryAK&#x9;&#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;InventoryName&#x9;&#x9;&#x9;&#x9;NVARCHAR(40)&#x9;&#x9;&#x9;NOT NULL,&#xA;InventoryPrice&#x9;&#x9;&#x9;&#x9;NUMERIC(6,2)&#x9;&#x9;&#x9;NOT NULL,&#xA;InventoryItemType&#x9;&#x9;&#x9;NVARCHAR(5)&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;InventoryCountryName&#x9;&#x9;NVARCHAR(40)&#x9;&#x9;&#x9;NOT NULL,&#xA;InventoryOnHand&#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL&#xA;)&#xA;GO &#xA;&#xA;--Fact Table&#xA;&#xA;CREATE TABLE [dbo].[FactSales](&#xA;&#x9;Fact_DD&#x9;&#x9;&#x9;&#x9;&#x9;INT NOT NULL,&#xA;    DateSK&#x9;&#x9;&#x9;&#x9;&#x9;INT&#x9;CONSTRAINT fk_DateSK FOREIGN KEY REFERENCES DimDate(Date_SK)&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;    ConsumerSK&#x9; &#x9;&#x9;&#x9;INT&#x9;CONSTRAINT fk_ConsumerSK FOREIGN KEY REFERENCES DimConsumer(ConsumerSK)&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;    EmployeeSK&#x9; &#x9;&#x9;&#x9;INT CONSTRAINT fk_EmployeeSK FOREIGN KEY REFERENCES DimEmployee(EmployeeSK)&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;    InventorySK&#x9;&#x9;&#x9;&#x9;INT&#x9;CONSTRAINT fk_InventorySK FOREIGN KEY REFERENCES DimInventory(InventorySK)&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;FullPrice&#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;Revenue&#x9;&#x9;&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;NOT NULL,&#xA;&#x9;DiscountPrice&#x9;&#x9;&#x9;INT&#x9;&#x9;&#x9;NOT NULL,&#xA;       &#x9;CONSTRAINT [PK_FactSales] PRIMARY KEY&#xA;       &#x9;(&#xA;&#x9;Fact_DD,&#xA;       &#x9;DateSK,&#xA;       &#x9;ConsumerSK,&#xA;       &#x9;InventorySK,&#xA;       &#x9;EmployeeSK&#xA;       &#x9;)&#xA;) &#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
       </DTS:Executables>
@@ -2245,6 +2245,12 @@ GO</property>
                           cachedName="Date_SK"
                           externalMetadataColumnId="Package\Load Fact Table\Load FactSales\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateSK]"
                           lineageId="Package\Load Fact Table\Load FactSales\OLE DB Source.Outputs[OLE DB Source Output].Columns[Date_SK]" />
+                        <inputColumn
+                          refId="Package\Load Fact Table\Load FactSales\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Fact_DD]"
+                          cachedDataType="i4"
+                          cachedName="Fact_DD"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactSales\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Fact_DD]"
+                          lineageId="Package\Load Fact Table\Load FactSales\OLE DB Source.Outputs[OLE DB Source Output].Columns[Fact_DD]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -2276,6 +2282,10 @@ GO</property>
                           refId="Package\Load Fact Table\Load FactSales\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateSK]"
                           dataType="i4"
                           name="DateSK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactSales\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Fact_DD]"
+                          dataType="i4"
+                          name="Fact_DD" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -2330,6 +2340,7 @@ GO</property>
                       description="The SQL command to be executed."
                       name="SqlCommand"
                       UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT  
+CoffeeMerchant.dbo.OrderLine.LineItem AS Fact_DD,
 	DimConsumer.ConsumerSK,
 	DimEmployee.EmployeeSK,
 	DimInventory.InventorySK,
@@ -2368,6 +2379,7 @@ GROUP BY
 	DimEmployee.EmployeeSK,
 	DimInventory.InventorySK,
 	DimDate.Date_SK,
+CoffeeMerchant.dbo.OrderLine.LineItem,
 	CoffeeMerchant.dbo.OrderLine.Price</property>
                     <property
                       dataType="System.String"
@@ -2473,6 +2485,15 @@ GROUP BY
                           precision="38"
                           scale="6"
                           truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactSales\OLE DB Source.Outputs[OLE DB Source Output].Columns[Fact_DD]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactSales\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Fact_DD]"
+                          lineageId="Package\Load Fact Table\Load FactSales\OLE DB Source.Outputs[OLE DB Source Output].Columns[Fact_DD]"
+                          name="Fact_DD"
+                          truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -2510,6 +2531,10 @@ GROUP BY
                           name="DiscountPrice"
                           precision="38"
                           scale="6" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactSales\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Fact_DD]"
+                          dataType="i4"
+                          name="Fact_DD" />
                       </externalMetadataColumns>
                     </output>
                     <output
@@ -2517,6 +2542,11 @@ GROUP BY
                       isErrorOut="true"
                       name="OLE DB Source Error Output">
                       <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactSales\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Fact_DD]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactSales\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Fact_DD]"
+                          name="Fact_DD" />
                         <outputColumn
                           refId="Package\Load Fact Table\Load FactSales\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ConsumerSK]"
                           dataType="i4"
