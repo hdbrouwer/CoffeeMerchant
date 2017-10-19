@@ -67,6 +67,7 @@ CREATE TABLE DimEmployee
 	Name					NVARCHAR(60)			NOT NULL,
 	CommissionRate 			NUMERIC(4,4)			NOT NULL,
 	HireDate       			DATETIME				NOT NULL,
+	BirthDate				DATETIME				NOT NULL,
 	Gender         			NVARCHAR(1)				NOT NULL,
 	)
 GO
@@ -100,19 +101,16 @@ GO
 
 CREATE TABLE [dbo].[FactSales](
     DateSK					INT	CONSTRAINT fk_DateSK FOREIGN KEY REFERENCES DimDates(DateSK)					NOT NULL,
-    CustomerSK	 			INT	CONSTRAINT fk_ConsumerSK FOREIGN KEY REFERENCES DimConsumer(ConsumerSK)					NOT NULL,
+    ConsumerSK	 			INT	CONSTRAINT fk_ConsumerSK FOREIGN KEY REFERENCES DimConsumer(ConsumerSK)					NOT NULL,
     EmployeeSK	 			INT CONSTRAINT fk_EmployeeSK FOREIGN KEY REFERENCES DimEmployee(EmployeeSK)						NOT NULL,
     InventorySK				INT	CONSTRAINT fk_InventorySK FOREIGN KEY REFERENCES DimInventory(InventorySK)					NOT NULL,
 	FullPrice				INT						NOT NULL,
 	Revenue					INT						NOT NULL,
-	Profit					INT						NOT NULL,
-	DiscountPrice			NVARCHAR(10)			NOT NULL,
-	TotalCommission			DATETIME				NOT NULL,
-	Quality					NVARCHAR(25)			NOT NULL,
+	DiscountPrice			INT			NOT NULL,
        	CONSTRAINT [PK_FactSales] PRIMARY KEY
        	(
        	DateSK,
-       	CustomerSK,
+       	ConsumerSK,
        	InventorySK,
        	EmployeeSK
        	)
