@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="10/18/2017 9:24:07 AM"
@@ -12,7 +12,7 @@
   DTS:ObjectName="ETLforCoffeeMerchant"
   DTS:PackageType="5"
   DTS:VersionBuild="64"
-  DTS:VersionGUID="{A6B8A3A7-27A6-43AD-AF27-FB6876B0C498}">
+  DTS:VersionGUID="{03819CF7-AD2D-4991-8C64-ABAB2F4AC6BE}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -2642,7 +2642,7 @@ CoffeeMerchant.dbo.OrderLine.LineItem,
 <!--If you manually edit this section and make a mistake, you can delete it. -->
 <!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
 <Objects
-  Version="8">
+  Version="sql12">
   <!--Each node below will contain properties that do not affect runtime behavior.-->
   <Package
     design-time-name="Package">
