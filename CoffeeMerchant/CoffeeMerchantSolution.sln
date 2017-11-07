@@ -10,9 +10,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionDocuments", "Soluti
 		STAR Schema.vsdx = STAR Schema.vsdx
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DWCoffeeMerchantSales", "DWCoffeeMerchantSales", "{9D3890E7-A82E-475F-AAE6-2063F2FB6094}"
+	ProjectSection(SolutionItems) = preProject
+		Backing up and restoring database.sql = Backing up and restoring database.sql
+		CoffeeMerchantDW Build.sql = CoffeeMerchantDW Build.sql
+		DWCoffeeMerchantSales.bak = DWCoffeeMerchantSales.bak
+	EndProjectSection
+EndProject
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "CoffeeMerchantETL", "CoffeeMerchanSSIS\CoffeeMerchantETL.dtproj", "{9C5ABFBA-B7B1-4DBC-B4FD-B5BF2170B0D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C5ABFBA-B7B1-4DBC-B4FD-B5BF2170B0D9}.Development|Default.ActiveCfg = Development
+		{9C5ABFBA-B7B1-4DBC-B4FD-B5BF2170B0D9}.Development|Default.Build.0 = Development
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
