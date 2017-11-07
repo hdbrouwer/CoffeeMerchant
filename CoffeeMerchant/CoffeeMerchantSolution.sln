@@ -19,6 +19,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DWCoffeeMerchantSales", "DW
 EndProject
 Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "CoffeeMerchantETL", "CoffeeMerchanSSIS\CoffeeMerchantETL.dtproj", "{9C5ABFBA-B7B1-4DBC-B4FD-B5BF2170B0D9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoffeeMerchantDMAnalysis", "CoffeeMerchantDMAnalysis", "{DDB4842B-3C1F-48F1-BA7B-980AD1203D5E}"
+	ProjectSection(SolutionItems) = preProject
+		CoffeeMerchantDMAnalysis\PowerPivot.xlsx = CoffeeMerchantDMAnalysis\PowerPivot.xlsx
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cube Analysis", "Cube Analysis", "{EEB03CA5-1710-4055-A17D-11C5745EDD87}"
+	ProjectSection(SolutionItems) = preProject
+		CoffeeMerchantDMAnalysis\Cube.xlsx = CoffeeMerchantDMAnalysis\Cube.xlsx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Development|Default = Development|Default
